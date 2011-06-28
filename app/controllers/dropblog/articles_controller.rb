@@ -7,6 +7,7 @@ module Dropblog
     load_and_authorize_resource :class => 'Dropblog::Article', :except => :show
 
     def index
+      params[:blog] ||= Dropblog::Engine.config.blogs.first
       @per_page ||= params[:per_page] || 10
       @articles = @articles.published unless can?(:edit, Article)
       @articles = @articles.order('published_at desc').paginate :page => params[:page], :per_page => @per_page
@@ -40,10 +41,20 @@ module Dropblog
     
     def update
       if @article.update_attributes params[:dropblog_article]
-        redirect_to article_path(@article)
+        redirect_to @article
       else
         respond_with @article
       end
+    end
+
+    def publish
+      @article.publish!
+      redirect_to @article
+    end
+
+    def unpublish
+      @article.unpublish!
+      redirect_to @article
     end
     
     def destroy

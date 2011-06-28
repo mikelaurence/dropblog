@@ -4,10 +4,12 @@ Rails.application.routes.draw do |map|
     resources :articles do
       member do
         get :publish
+        get :unpublish
       end
     end
   end
-  
+
+  match 'blog' => 'dropblog/articles#index'
   match 'blog/:blog' => 'dropblog/articles#index', :as => :dropblog_permalink
   match 'blog/:blog/:year/:month/:day/:permalink' => 'dropblog/articles#show', :as => :dropblog_article_permalink
 

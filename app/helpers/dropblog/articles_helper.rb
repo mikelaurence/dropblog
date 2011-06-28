@@ -13,6 +13,16 @@ module Dropblog
       }.merge(options)
     end
 
+    def post_time(article)
+      return nil unless article.published_at
+
+      if article.published_at + 1.day > Time.now
+        'posted ' + time_ago_in_words(article.published_at) + ' ago'
+      else
+        'posted ' + article.published_at.to_s(Dropblog::Engine.config.published_at_format)
+      end
+    end
+
     def facebook_like_button(url)
       raw %[<iframe src="http://www.facebook.com/plugins/like.php?href=#{url}&amp;layout=button_count&amp;show_faces=true&amp;width=120&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>]
     end

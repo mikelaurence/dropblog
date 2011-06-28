@@ -10,6 +10,7 @@ module Dropblog
     config.blogs = [:main]
     config.comments = :facebook
     config.published_at_format = :article
+    config.link_to_user = false
     config.facebook_like = true
     config.excerpt_sentences = 3
     config.index_defaults = {

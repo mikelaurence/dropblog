@@ -9,15 +9,23 @@
 
     - if can?(:edit, article)
       %aside.admin
-        - unless article.published?
-          %h3.draft Draft
+        - pub = article.published? ? 'live' : 'draft'
+        %h2{ :class => pub }= pub.titleize
         = link_to 'Edit', edit_dropblog_article_path(article)
-        - unless article.published?
+        - if article.published?
+          = link_to 'Unpublish', unpublish_dropblog_article_path(article)
+        - else
           = link_to 'Publish', publish_dropblog_article_path(article)
 
-    %h5
-      Posted on 
-      = article.published_at.to_s(Dropblog::Engine.config.published_at_format)
+    - if article.user
+      %h3
+        - if Dropblog::Engine.config.link_to_user
+          = link_to article.user.name, article.user
+        - else
+          = article.user.name
+
+    %h4
+      = post_time article
     %p.social
       - unless Dropblog::Engine.config.facebook_like == false
         = facebook_like_button url
