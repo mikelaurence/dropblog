@@ -1,0 +1,18 @@
+%article
+  %header
+    %h2
+      %a{ :href => article.url }
+        = article.title
+    %h5
+      Posted on 
+      = article.posted_at.strftime(@settings[:date_format])
+      = "#{' at ' + article.posted_at.strftime(@settings[:time_format])}"
+    %p.social
+      - unless @settings[:facebook_like] = false
+        = facebook_like_button(url)
+    
+  = article.html
+  
+  - if @show_comments
+    %section.comments
+      = comments(url)
