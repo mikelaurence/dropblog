@@ -4,5 +4,12 @@
     New Article
 
   = f.association :user, :collection => (User.bloggers rescue User.all)
+  = f.input :blog, :collection => Dropblog::Engine.config.blogs
   = f.input :title
   = f.input :permalink
+  = f.input :body
+  = f.input :excerpt
+  = f.input :published_at
+  = f.input :published
+  = f.input :allow_comments
+  = f.submit

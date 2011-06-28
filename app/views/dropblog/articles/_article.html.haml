@@ -1,18 +1,18 @@
+- url = articles_path(article)
+
 %article
   %header
     %h2
-      %a{ :href => article.url }
-        = article.title
+      = link_to article.title, url
     %h5
       Posted on 
-      = article.posted_at.strftime(@settings[:date_format])
-      = "#{' at ' + article.posted_at.strftime(@settings[:time_format])}"
+      = article.published_at.to_s(Dropblog::Engine.config.published_at_format)
     %p.social
-      - unless @settings[:facebook_like] = false
-        = facebook_like_button(url)
+      - unless Dropblog::Engine.config.facebook_like == false
+        = facebook_like_button url
     
-  = article.html
+  = raw article.html
   
-  - if @show_comments
+  - if Dropblog::Engine.config.comments and article.allow_comments?
     %section.comments
-      = comments(url)
+      = comments url
