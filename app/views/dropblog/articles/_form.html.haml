@@ -1,5 +1,5 @@
 - form_builder = [:simple_form_for, :semantic_form_for].find{ |f| respond_to?(f) }
-= send form_builder, @article, :url => articles_path do |f|
+= send form_builder, @article, :url => @article.new_record? ? articles_path : article_path(@article) do |f|
   %h2
     New Article
 

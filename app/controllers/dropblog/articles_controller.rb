@@ -27,14 +27,15 @@ module Dropblog
     end
 
     def show
-      @article = Dropblog::Article.find_by_permalink(params[:permalink])
+      @article = Dropblog::Article.find(params[:id]) if params[:id]
+      @article ||= Dropblog::Article.find_by_permalink(params[:permalink])
       authorize! :read, @article
       respond_with @article
     end
     
     def update
       if @article.update_attributes params[:dropblog_article]
-        redirect_to @article
+        redirect_to article_path(@article)
       else
         respond_with @article
       end

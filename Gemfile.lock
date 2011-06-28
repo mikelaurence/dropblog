@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    cancan (1.6.5)
     git (1.2.5)
     haml (3.1.2)
     jeweler (1.5.2)
@@ -17,6 +18,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.0.0)
+  cancan
   haml
   jeweler (~> 1.5.2)
   rcov
