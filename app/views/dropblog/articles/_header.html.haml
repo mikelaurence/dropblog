@@ -1,0 +1,10 @@
+%header.articles
+  %h1
+    = link_to 'Blog', blog_path(:blog => :main)
+  %h6
+    powered by
+    = link_to 'dropblog', 'http://github.com/mikelaurence/dropblog'
+
+  - if can? :create, Dropblog::Article
+    %aside.admin
+      = link_to 'New article', new_article_path

@@ -1,14 +1,19 @@
 module Dropblog
   class ArticlesController < ApplicationController
-
     unloadable
+
+    respond_to :html
     
     load_and_authorize_resource :class => 'Dropblog::Article', :except => :show
-    after_filter :respond, :except => :index
+    after_filter :respond, :except => [:index, :new]
 
     def index
       @per_page ||= params[:per_page] || 10
       @articles = @articles.published.order('published_at desc').paginate :page => params[:page], :per_page => @per_page
+    end
+
+    def new
+      @article.user = current_user
     end
 
     def create

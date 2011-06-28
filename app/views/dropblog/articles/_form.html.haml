@@ -1,0 +1,8 @@
+- form_builder = [:simple_form_for, :semantic_form_for].find{ |f| respond_to?(f) }
+= send form_builder, @article, :url => articles_path do |f|
+  %h2
+    New Article
+
+  = f.association :user, :collection => (User.bloggers rescue User.all)
+  = f.input :title
+  = f.input :permalink
