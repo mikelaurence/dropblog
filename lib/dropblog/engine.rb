@@ -5,8 +5,8 @@ module Dropblog
   class Engine < Rails::Engine
     paths.app.views << "../blogly/lib/blogly/views"
 
-    Time::DATE_FORMATS[:article] ||= "%A, %B %d, %Y at %H:%M%p"
-
+    config.title = 'Dropblog'
+    config.description = 'A wonderful little blog'
     config.blogs = [:main]
     config.comments = :facebook
     config.published_at_format = :article

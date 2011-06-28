@@ -2,7 +2,7 @@ module Dropblog
   class ArticlesController < ApplicationController
     unloadable
 
-    respond_to :html
+    respond_to :html, :xml
     
     load_and_authorize_resource :class => 'Dropblog::Article', :except => :show
 
@@ -10,6 +10,11 @@ module Dropblog
       @per_page ||= params[:per_page] || 10
       @articles = @articles.published unless can?(:edit, Article)
       @articles = @articles.order('published_at desc').paginate :page => params[:page], :per_page => @per_page
+
+      respond_to do |format|
+        format.html
+        format.xml { render :feed }
+      end
     end
 
     def new
