@@ -2,12 +2,12 @@
 %feed{ :xmlns => "http://www.w3.org/2005/Atom" }
 
   %title= Dropblog::Engine.config.title
-  %link= blog_permalink_path(:blog => params[:blog])
+  %link= blog_permalink_url(:blog => params[:blog])
   %description= Dropblog::Engine.config.description
   %updated= @articles.first.published_at.rfc3339
   %generator
     http://github.com/mikelaurence/dropblog 
-  <atom:link href="#{params[:url]}" rel="self" type="application/rss+xml" />
+  <atom:link href="#{blog_permalink_url(:blog => params[:blog], :format => :xml)}" rel="self" type="application/rss+xml" />
 
   - @articles.each do |article|
     %entry
