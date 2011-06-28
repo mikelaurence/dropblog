@@ -13,6 +13,8 @@ module Dropblog
     validates_presence_of :title
     validates_presence_of :body
 
+    acts_as_taggable_on :tags
+
     before_validation :set_default_permalink
 
     def html

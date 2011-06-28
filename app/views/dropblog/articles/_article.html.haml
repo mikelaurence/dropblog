@@ -1,9 +1,15 @@
 - url = articles_path(article)
 
-%article
+%article{ :class => article.published? ? 'published' : 'draft' }
   %header
     %h2
       = link_to article.title, url
+
+    - if can?(:edit, article)
+      - unless article.published?
+        %h3.draft Draft
+      = link_to 'Edit', edit_article_path(article)
+
     %h5
       Posted on 
       = article.published_at.to_s(Dropblog::Engine.config.published_at_format)

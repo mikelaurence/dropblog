@@ -15,7 +15,7 @@ module Dropblog
     def new
       @article.user = current_user
       @article.blog = Dropblog::Engine.config.blogs.first
-      @article.allows_comments = true
+      @article.allow_comments = true
     end
 
     def create
