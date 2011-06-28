@@ -1,2 +1,3 @@
+- options = articles.size > 1 ? Dropblog::Engine.config.index_defaults : Dropblog::Engine.config.show_defaults
 .articles
-  = render :partial => 'article', :collection => articles, :as => :article
+  = render :partial => 'article', :collection => articles, :as => :article, :locals => { :options => options }

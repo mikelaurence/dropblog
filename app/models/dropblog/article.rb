@@ -18,13 +18,24 @@ module Dropblog
     before_validation :set_default_permalink
 
     def html
-      Redcarpet.new(body).to_html
+      to_html body
+    end
+
+    def excerpt_html
+      if excerpt.blank?
+        to_html body.sentences.first(Dropblog::Engine.config.excerpt_sentences).join
+      else
+        to_html excerpt
+      end
     end
 
 
 
-
     protected
+
+    def to_html(content)
+      Redcarpet.new(content).to_html
+    end
 
     def set_default_permalink
       self.permalink = title.parameterize if self.permalink.blank?

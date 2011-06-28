@@ -1,4 +1,6 @@
-- url = articles_path(article)
+- options ||= {}
+- url = dropblog_article_permalink_path(article)
+- show_comments ||= false
 
 %article{ :class => article.published? ? 'published' : 'draft' }
   %header
@@ -6,9 +8,12 @@
       = link_to article.title, url
 
     - if can?(:edit, article)
-      - unless article.published?
-        %h3.draft Draft
-      = link_to 'Edit', edit_article_path(article)
+      %aside.admin
+        - unless article.published?
+          %h3.draft Draft
+        = link_to 'Edit', edit_dropblog_article_path(article)
+        - unless article.published?
+          = link_to 'Publish', publish_dropblog_article_path(article)
 
     %h5
       Posted on 
@@ -17,8 +22,13 @@
       - unless Dropblog::Engine.config.facebook_like == false
         = facebook_like_button url
     
-  = raw article.html
+  - if options[:excerpt]
+    = raw article.excerpt_html
+    %footer
+      = link_to 'Read more...', url
+  - else
+    = raw article.html
   
-  - if Dropblog::Engine.config.comments and article.allow_comments?
+  - if Dropblog::Engine.config.comments and article.allow_comments? and !options[:hide_comments]
     %section.comments
       = comments url

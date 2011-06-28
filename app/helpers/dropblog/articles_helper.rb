@@ -1,6 +1,18 @@
 module Dropblog
   module ArticlesHelper
 
+    def dropblog_article_permalink_path(article, options = {})
+      return dropblog_article_path(article) unless article.published?
+
+      super article, { 
+        :blog => article.blog,
+        :year => article.published_at.year, 
+        :month => article.published_at.month,
+        :day => article.published_at.day,
+        :permalink => article.permalink
+      }.merge(options)
+    end
+
     def facebook_like_button(url)
       raw %[<iframe src="http://www.facebook.com/plugins/like.php?href=#{url}&amp;layout=button_count&amp;show_faces=true&amp;width=120&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>]
     end
