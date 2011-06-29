@@ -1,6 +1,10 @@
 module Dropblog
   module ArticlesHelper
 
+    def dropblog_article_permalink_url(article, options = {})
+      url_for dropblog_article_permalink_path(article, options.merge({ :only_path => false }))
+    end
+
     def dropblog_article_permalink_path(article, options = {})
       return dropblog_article_path(article) unless article.published?
 

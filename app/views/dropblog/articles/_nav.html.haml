@@ -1,14 +1,17 @@
 %nav.articles{ :class => Dropblog::Engine.config.nav_class }
   = render 'nav_top'
 
-  - if Dropblog::Engine.config.blogs.size > 1
+  %h2.rss
+    = link_to 'RSS Feed', dropblog_permalink_path(:blog => @blog, :format => :xml)
+
+  - if Dropblog::Engine.config.blogs.size > 0
     %h2 Blogs
     %ul.blogs
       - Dropblog::Engine.config.blogs.each do |blog|
         %li
-          = link_to blog.to_s.titleize, blog_permalink_path(:blog => blog), :class => @blog == blog ? 'selected' : nil
+          = link_to blog.to_s.titleize, dropblog_permalink_path(:blog => blog), :class => @blog == blog ? 'selected' : nil
 
-  - tags = Dropblog::Article.tag_counts.order('name asc')
+  - tags = Dropblog::Article.where(:blog => @blog).tag_counts.order('name asc')
   - if tags.size > 0
     %h2 Tags
     %ul.tags

@@ -31,7 +31,7 @@
       %h5 
         %span Tags:
         - article.tags.each do |tag|
-          = link_to tag.name.titleize, dropblog_tag_path(:tag => tag_parameter(tag)) 
+          = link_to tag.name.titleize, dropblog_tag_path(:blog => @blog, :tag => tag_parameter(tag)) 
 
     %p.social
       - unless Dropblog::Engine.config.facebook_like == false
