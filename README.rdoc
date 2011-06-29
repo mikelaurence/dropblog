@@ -9,7 +9,7 @@ Dependencies:
 - Articles database table (see migration in lib/migrations/create_articles). *Generator / changeable table name coming soon.*
 - HTML5 (use Modernizr or HTML5 shim to support those sorry IE users)
 - CanCan for authorization
-- SimpleForm or Formtastic for form construction
+- SimpleForm for form construction *(Formtastic support coming shortly)*
 - ActsAsTaggableOn for tagging *(will become optional shortly)*
 
 Configuration hooks (Dropblog::Engine.config):
