@@ -1,6 +1,32 @@
 = dropblog
 
-Description goes here.
+Dropblog is an "opinionated" drop-in blog engine for Rails. For truly easy deployment, it depends on a few key components, although you can override various components if your opinions vary.
+
+Dropblog is in extreme alpha at the moment, with no tests or real sanity yet. Use at your own risk.
+
+Dependencies:
+
+- Articles database table (see migration in lib/migrations/create_articles). *Generator / changeable table name coming soon.*
+- HTML5 (use Modernizr or HTML5 shim to support those sorry IE users)
+- CanCan for authorization
+- SimpleForm or Formtastic for form construction
+- ActsAsTaggableOn for tagging *(will become optional shortly)*
+
+Configuration hooks (Dropblog::Engine.config):
+
+- title: Blog title
+- description: Used in RSS feed
+- blogs: An array of blog names (such as :main, :engineering, etc.) Defaults to just [:main].
+- comments: Service to use for comments (defaults to :facebook, which is also currently the only option)
+- published_at_format: Date format displayed in article
+- link_to_user: if true, links the article byline to the user
+- facebook_like: if true, shows a Facebook like button on each article
+- excerpt_sentences: number of sentences to show for excerpt (if excerpt is not defined in the model)
+- index_defaults and show_defaults: Hash containing boolean options :hide_comments and/or :excerpt (if true, show excerpt instead of body)
+- article_class: CSS class on each <article> element
+- nav_class: CSS class on the <nav> element
+
+
 
 == Contributing to dropblog
  
