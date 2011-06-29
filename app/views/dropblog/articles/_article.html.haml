@@ -2,7 +2,7 @@
 - url = dropblog_article_permalink_path(article)
 - show_comments ||= false
 
-%article{ :class => article.published? ? 'published' : 'draft' }
+%article{ :class => "#{article.published? ? 'published' : 'draft'} #{Dropblog::Engine.config.article_class}" }
   %header
     %h2
       = link_to article.title, url
@@ -26,6 +26,13 @@
 
     %h4
       = post_time article
+
+    - unless article.tags.blank?
+      %h5 
+        %span Tags:
+        - article.tags.each do |tag|
+          = link_to tag.name.titleize, dropblog_tag_path(:tag => tag_parameter(tag)) 
+
     %p.social
       - unless Dropblog::Engine.config.facebook_like == false
         = facebook_like_button url
@@ -38,5 +45,5 @@
     = raw article.html
   
   - if Dropblog::Engine.config.comments and article.allow_comments? and !options[:hide_comments]
-    %section.comments
+    .comments
       = comments url

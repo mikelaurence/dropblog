@@ -1,0 +1,19 @@
+%nav.articles
+  = render 'nav_top'
+
+  - if Dropblog::Engine.config.blogs.size > 1
+    %h2 Blogs
+    %ul.blogs
+      - Dropblog::Engine.config.blogs.each do |blog|
+        %li
+          = link_to blog.to_s.titleize, blog_permalink_path(:blog => blog), :class => @blog == blog ? 'selected' : nil
+
+  - tags = Dropblog::Article.tag_counts.order('name asc')
+  - if tags.size > 0
+    %h2 Tags
+    %ul.tags
+      - tags.each do |tag|
+        %li
+          = link_to dropblog_tag_path(:blog => @blog, :tag => tag_parameter(tag)) do
+            %span.name= tag.name.titleize
+            %span.count= "(#{tag.count})"

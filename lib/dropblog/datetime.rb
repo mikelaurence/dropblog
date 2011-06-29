@@ -1,4 +1,4 @@
-Time::DATE_FORMATS[:article] ||= "%A, %B %d, %Y at %H:%M%p"
+Time::DATE_FORMATS[:article] ||= "%A, %B %d, %Y"
 
 module RFC3339
   def rfc3339

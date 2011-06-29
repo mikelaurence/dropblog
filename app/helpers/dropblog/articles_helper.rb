@@ -4,13 +4,13 @@ module Dropblog
     def dropblog_article_permalink_path(article, options = {})
       return dropblog_article_path(article) unless article.published?
 
-      super article, { 
+      super({ 
         :blog => article.blog,
         :year => article.published_at.year, 
         :month => article.published_at.month,
         :day => article.published_at.day,
         :permalink => article.permalink
-      }.merge(options)
+      }.merge(options))
     end
 
     def post_time(article)
@@ -21,6 +21,10 @@ module Dropblog
       else
         'posted ' + article.published_at.to_s(Dropblog::Engine.config.published_at_format)
       end
+    end
+
+    def tag_parameter(tag)
+      tag.name.gsub(' ', '_')
     end
 
     def facebook_like_button(url)

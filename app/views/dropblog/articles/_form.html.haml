@@ -1,16 +1,17 @@
-- form_builder = [:simple_form_for, :semantic_form_for].find{ |f| respond_to?(f) }
-= send form_builder, @article, :url => @article.new_record? ? dropblog_articles_path : dropblog_article_path(@article) do |f|
-  %h2
-    New Article
+%article{ :class => Dropblog::Engine.config.article_class }
+  - form_builder = [:simple_form_for, :semantic_form_for].find{ |f| respond_to?(f) }
+  = send form_builder, @article, :url => @article.new_record? ? dropblog_articles_path : dropblog_article_path(@article) do |f|
+    %h2
+      New Article
 
-  = f.association :user, :collection => (User.bloggers rescue User.all)
-  = f.input :blog, :collection => Dropblog::Engine.config.blogs, :include_blank => false
-  = f.input :title
-  = f.input :permalink
-  = f.input :tag_list
-  = f.input :body
-  = f.input :excerpt
-  = f.input :published_at
-  = f.input :published
-  = f.input :allow_comments
-  = f.submit
+    = f.association :user, :collection => (User.bloggers rescue User.all)
+    = f.input :blog, :collection => Dropblog::Engine.config.blogs, :include_blank => false
+    = f.input :title
+    = f.input :permalink
+    = f.input :tag_list
+    = f.input :body
+    = f.input :excerpt
+    = f.input :published_at
+    = f.input :published
+    = f.input :allow_comments
+    = f.submit

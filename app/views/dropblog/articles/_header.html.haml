@@ -1,6 +1,6 @@
 %header.articles
   %h1
-    = link_to 'Blog', dropblog_permalink_path(:blog => @article.try(:blog) || params[:blog])
+    = link_to 'Blog', dropblog_permalink_path(:blog => @blog)
   %h6
     powered by
     = link_to 'dropblog', 'http://github.com/mikelaurence/dropblog'

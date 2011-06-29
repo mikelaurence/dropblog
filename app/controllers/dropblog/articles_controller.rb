@@ -4,11 +4,12 @@ module Dropblog
 
     respond_to :html, :xml
     
+    before_filter :get_blog, :except => [:show]
     load_and_authorize_resource :class => 'Dropblog::Article', :except => :show
 
     def index
-      params[:blog] ||= Dropblog::Engine.config.blogs.first
       @per_page ||= params[:per_page] || 10
+      @articles = @articles.tagged_with(params[:tag].gsub('_', ' ')) if params[:tag]
       @articles = @articles.published unless can?(:edit, Article)
       @articles = @articles.order('published_at desc').paginate :page => params[:page], :per_page => @per_page
 
@@ -36,6 +37,8 @@ module Dropblog
       @article = Dropblog::Article.find(params[:id]) if params[:id]
       @article ||= Dropblog::Article.find_by_permalink(params[:permalink])
       authorize! :read, @article
+
+      @blog = @article.blog
       respond_with @article
     end
     
@@ -60,6 +63,14 @@ module Dropblog
     def destroy
       @article.destroy
       respond_with @article
+    end
+
+
+
+    protected
+
+    def get_blog
+      @blog ||= params[:blog] || Dropblog::Engine.config.blogs.first
     end
 
   end
