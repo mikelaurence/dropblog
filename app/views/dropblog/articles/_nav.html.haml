@@ -1,8 +1,9 @@
 %nav.articles{ :class => Dropblog::Engine.config.nav_class }
   = render 'nav_top'
 
-  %h2.rss
-    = link_to 'RSS Feed', dropblog_permalink_path(:blog => @blog, :format => :xml)
+  - if @blog
+    %h2.rss
+      = link_to 'RSS Feed', dropblog_permalink_path(:blog => @blog, :format => :xml)
 
   - if Dropblog::Engine.config.blogs.size > 0
     %h2 Blogs
@@ -11,12 +12,13 @@
         %li
           = link_to blog.to_s.titleize, dropblog_permalink_path(:blog => blog), :class => @blog == blog ? 'selected' : nil
 
-  - tags = Dropblog::Article.where(:blog => @blog).tag_counts.order('name asc')
-  - if tags.size > 0
-    %h2 Tags
-    %ul.tags
-      - tags.each do |tag|
-        %li
-          = link_to dropblog_tag_path(:blog => @blog, :tag => tag_parameter(tag)) do
-            %span.name= tag.name.titleize
-            %span.count= "(#{tag.count})"
+  - if @blog
+    - tags = Dropblog::Article.where(:blog => @blog).tag_counts.order('name asc')
+    - if tags.size > 0
+      %h2 Tags
+      %ul.tags
+        - tags.each do |tag|
+          %li
+            = link_to dropblog_tag_path(:blog => @blog, :tag => tag_parameter(tag)) do
+              %span.name= tag.name.titleize
+              %span.count= "(#{tag.count})"

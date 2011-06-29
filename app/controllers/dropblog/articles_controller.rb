@@ -4,10 +4,12 @@ module Dropblog
 
     respond_to :html, :xml
     
-    before_filter :get_blog, :except => [:show]
+    before_filter :get_blog, :only => [:index, :show]
     load_and_authorize_resource :class => 'Dropblog::Article', :except => :show
 
     def index
+      validate_blog!
+
       @per_page ||= params[:per_page] || 10
       @articles = @articles.where(:blog => @blog)
       @articles = @articles.tagged_with(params[:tag].gsub('_', ' ')) if params[:tag]
@@ -36,7 +38,7 @@ module Dropblog
 
     def show
       @article = Dropblog::Article.find(params[:id]) if params[:id]
-      @article ||= Dropblog::Article.find_by_permalink(params[:permalink])
+      @article ||= Dropblog::Article.find_by_blog_and_permalink(params[:blog], params[:permalink])
       authorize! :read, @article
 
       @blog = @article.blog
@@ -72,7 +74,9 @@ module Dropblog
 
     def get_blog
       @blog = params[:blog]
+    end
 
+    def validate_blog!
       unless Dropblog::Engine.config.blogs.collect(&:to_s).include?(@blog)
         raise ActiveRecord::RecordNotFound.new("Couldn't find blog '#{@blog}'")
       end

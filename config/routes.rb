@@ -9,7 +9,7 @@ Rails.application.routes.draw do |map|
     end
   end
 
-  match 'blog' => 'dropblog/articles#index'
+  #match 'blog' => 'dropblog/articles#index' # TODO: Single blog action
   match 'blog/:blog' => 'dropblog/articles#index', :as => :dropblog_permalink
   match 'blog/:blog/:year/:month/:day/:permalink' => 'dropblog/articles#show', :as => :dropblog_article_permalink
   match 'blog/:blog/:tag' => 'dropblog/articles#index', :as => :dropblog_tag

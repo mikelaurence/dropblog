@@ -1,8 +1,11 @@
 %header.articles
   %h1
-    - titles = Dropblog::Engine.config.title
-    - title = titles.is_a?(Hash) ? titles[@blog.to_sym] : titles
-    = link_to title, dropblog_permalink_path(:blog => @blog)
+    - if @blog
+      - titles = Dropblog::Engine.config.title
+      - title = titles.is_a?(Hash) ? titles[@blog.to_sym] : titles
+      = link_to title, dropblog_permalink_path(:blog => @blog)
+    - else
+      Blog
   %h6
     powered by
     = link_to 'dropblog', 'http://github.com/mikelaurence/dropblog'
