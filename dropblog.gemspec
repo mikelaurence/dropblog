@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dropblog}
-  s.version = "0.0.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mike Laurence"]
-  s.date = %q{2011-06-27}
+  s.date = %q{2011-06-29}
   s.description = %q{TODO: longer description of your gem}
   s.email = %q{mklaurence@gmail.com}
   s.extra_rdoc_files = [
@@ -19,11 +19,37 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "app/controllers/dropblog/articles_controller.rb",
+    "app/helpers/dropblog/articles_helper.rb",
+    "app/models/dropblog/article.rb",
+    "app/views/dropblog/articles/_article.html.haml",
+    "app/views/dropblog/articles/_articles.html.haml",
+    "app/views/dropblog/articles/_footer.html.haml",
+    "app/views/dropblog/articles/_form.html.haml",
+    "app/views/dropblog/articles/_header.html.haml",
+    "app/views/dropblog/articles/_index.html.haml",
+    "app/views/dropblog/articles/_layout.html.haml",
+    "app/views/dropblog/articles/_nav.html.haml",
+    "app/views/dropblog/articles/_nav_top.html.haml",
+    "app/views/dropblog/articles/_show.html.haml",
+    "app/views/dropblog/articles/create.html.haml",
+    "app/views/dropblog/articles/edit.html.haml",
+    "app/views/dropblog/articles/feed.xml.haml",
+    "app/views/dropblog/articles/index.html.haml",
+    "app/views/dropblog/articles/new.html.haml",
+    "app/views/dropblog/articles/show.html.haml",
+    "config/routes.rb",
+    "dropblog.gemspec",
     "lib/dropblog.rb",
+    "lib/dropblog/additions.rb",
+    "lib/dropblog/datetime.rb",
+    "lib/dropblog/engine.rb",
+    "lib/migrations/create_articles.rb",
     "test/helper.rb",
     "test/test_dropblog.rb"
   ]
@@ -43,6 +69,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<haml>, [">= 0"])
       s.add_runtime_dependency(%q<redcarpet>, [">= 0"])
+      s.add_runtime_dependency(%q<cancan>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
@@ -50,6 +77,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<haml>, [">= 0"])
       s.add_dependency(%q<redcarpet>, [">= 0"])
+      s.add_dependency(%q<cancan>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
@@ -58,6 +86,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<haml>, [">= 0"])
     s.add_dependency(%q<redcarpet>, [">= 0"])
+    s.add_dependency(%q<cancan>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
