@@ -1,4 +1,4 @@
-%nav.articles
+%nav.articles{ :class => Dropblog::Engine.config.nav_class }
   = render 'nav_top'
 
   - if Dropblog::Engine.config.blogs.size > 1

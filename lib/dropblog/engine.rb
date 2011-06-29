@@ -22,6 +22,7 @@ module Dropblog
       :excerpt => false
     }
     config.article_class = nil
+    config.nav_class = nil
 
     config.to_prepare do
       ApplicationController.helper(ArticlesHelper)
