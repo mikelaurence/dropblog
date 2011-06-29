@@ -12,6 +12,7 @@ module Dropblog
     validates_presence_of :blog
     validates_presence_of :title
     validates_presence_of :body
+    validates_uniqueness_of :permalink
 
     acts_as_taggable_on :tags
 

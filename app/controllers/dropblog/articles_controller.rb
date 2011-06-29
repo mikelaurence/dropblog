@@ -9,6 +9,7 @@ module Dropblog
 
     def index
       @per_page ||= params[:per_page] || 10
+      @articles = @articles.where(:blog => @blog)
       @articles = @articles.tagged_with(params[:tag].gsub('_', ' ')) if params[:tag]
       @articles = @articles.published unless can?(:edit, Article)
       @articles = @articles.order('published_at desc').paginate :page => params[:page], :per_page => @per_page
@@ -70,7 +71,11 @@ module Dropblog
     protected
 
     def get_blog
-      @blog ||= params[:blog] || Dropblog::Engine.config.blogs.first
+      @blog = params[:blog]
+
+      unless Dropblog::Engine.config.blogs.collect(&:to_s).include?(@blog)
+        raise ActiveRecord::RecordNotFound.new("Couldn't find blog '#{@blog}'")
+      end
     end
 
   end

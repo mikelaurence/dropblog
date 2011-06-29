@@ -7,7 +7,7 @@ module Dropblog
 
     config.title = 'Dropblog'
     config.description = 'A wonderful little blog'
-    config.blogs = [:main]
+    config.blogs = [:main, :tech]
     config.comments = :facebook
     config.published_at_format = :article
     config.link_to_user = false
