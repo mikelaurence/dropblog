@@ -13,7 +13,7 @@
           = link_to blog.to_s.titleize, dropblog_permalink_path(:blog => blog), :class => @blog == blog ? 'selected' : nil
 
   - if @blog
-    - tags = Dropblog::Article.where(:blog => @blog).tag_counts.order('name asc')
+    - tags = Dropblog::Article.where(:blog => @blog).tag_counts.order('name asc').all
     - if tags.size > 0
       %h2 Tags
       %ul.tags

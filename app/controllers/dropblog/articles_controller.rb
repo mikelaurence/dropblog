@@ -14,7 +14,7 @@ module Dropblog
       @articles = @articles.where(:blog => @blog)
       @articles = @articles.tagged_with(params[:tag].gsub('_', ' ')) if params[:tag]
       @articles = @articles.published unless can?(:edit, Article)
-      @articles = @articles.order('published_at desc').paginate :page => params[:page], :per_page => @per_page
+      @articles = @articles.order('published_at desc').page(params[:page]).per(@per_page)
 
       respond_to do |format|
         format.html

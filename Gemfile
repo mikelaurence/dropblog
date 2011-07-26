@@ -3,6 +3,7 @@ source "http://rubygems.org"
 gem 'haml'
 gem 'redcarpet'
 gem 'cancan'
+gem 'kaminari'
 
 group :development do
   gem "shoulda", ">= 0"

@@ -10,6 +10,8 @@
     powered by
     = link_to 'dropblog', 'http://github.com/mikelaurence/dropblog'
 
+  = paginate @articles if @articles
+
   - if can? :create, Dropblog::Article
     %aside.admin
       = link_to 'New article', new_dropblog_article_path
